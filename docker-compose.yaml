@@ -61,31 +61,6 @@ services:
     volumes:
       - ./data:/shared:rw
 
-  audio-bridge:
-    build:
-      context: ./audio-bridge-service
-    container_name: audio-bridge
-    restart: unless-stopped
-    environment:
-      - BRIDGE_HOST=0.0.0.0
-      - BRIDGE_PORT=8082
-      - MVP_WS_HOST=fs-mvp
-      - MVP_WS_PORT=8081
-      - RTVC_WS_HOST=realtimevoicechat
-      - RTVC_WS_PORT=8000
-      - RTVC_SAMPLE_RATE=16000
-      - LOG_LEVEL=INFO
-      - DEBUG=${DEBUG:-false}
-      - SESSION_TIMEOUT=300
-      - MAX_SESSIONS=10
-    ports:
-      - "8082:8082"
-    depends_on:
-      - mvp
-    volumes:
-      - /tmp/audio_debug:/tmp/audio_debug
-
-
 networks:
   default:
     name: freeswitch-net

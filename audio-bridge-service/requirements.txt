@@ -1,0 +1,22 @@
+# Audio Bridge Service Dependencies
+
+# Web框架
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.5.0
+
+# WebSocket客户端
+websockets==12.0
+
+# 音频处理
+numpy==1.24.3
+scipy==1.11.4
+
+# 异步支持
+asyncio-extras==1.3.2
+
+# 日志和调试
+colorlog==6.8.0
+
+# 可选：音频文件处理（用于调试）
+# wave 和 struct 是Python内置模块，无需安装

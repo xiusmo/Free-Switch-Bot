@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<configuration name="event_socket.conf" description="Socket Client">
+  <load module="mod_event_socket"/>
+  <settings>
+    <param name="listen-ip" value="$${event_socket_listen_ip}"/>
+    <param name="listen-port" value="$${event_socket_listen_port}"/>
+    <param name="password" value="$${event_socket_password}"/>
+    <!-- 开发环境放宽：允许所有 IPv4 访问（仅限容器网络使用，生产请收紧） -->
+    <param name="apply-inbound-acl" value="any_v4.auto"/>
+  </settings>
+</configuration> 

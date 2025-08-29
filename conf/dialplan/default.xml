@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<include>
+  <context name="default">
+    <!-- Outbound to UCM: dial 9 + number to send via ucm_trunk -->
+    <extension name="to_ucm" continue="false">
+      <condition field="destination_number" expression="^9(\d+)$">
+        <action application="set" data="effective_caller_id_number=${caller_id_number}"/>
+        <action application="bridge" data="sofia/gateway/ucm_trunk/${1}"/>
+      </condition>
+    </extension>
+
+    <!-- Direct dial UCM extension 1001 via ucm_trunk -->
+    <extension name="to_ucm_ext_1001" continue="false">
+      <condition field="destination_number" expression="^(1001)$">
+        <action application="set" data="effective_caller_id_number=${caller_id_number}"/>
+        <action application="bridge" data="sofia/gateway/ucm_trunk/${1}"/>
+      </condition>
+    </extension>
+    <!-- Simple test extension - just answers with success message -->
+    <extension name="simple_test">
+      <condition field="destination_number" expression="^(9999)$">
+        <action application="answer"/>
+        <action application="sleep" data="1000"/>
+        <action application="playback" data="tone_stream://%(1000,0,1000)"/>
+        <action application="sleep" data="5000"/>
+        <action application="hangup"/>
+      </condition>
+    </extension>
+
+    <!-- Extension for testing audio stream -->
+    <extension name="audio_stream_test">
+      <condition field="destination_number" expression="^(1000)$">
+        <action application="answer"/>
+        <action application="playback" data="silence_stream://1000"/>
+        <action application="record_session" data="/tmp/test_recording.wav"/>
+        <action application="echo"/>
+      </condition>
+    </extension>
+    
+    <!-- Extension for echo test (renamed to avoid conflict with UCM 1001) -->
+    <extension name="echo_test">
+      <condition field="destination_number" expression="^(6001)$">
+        <action application="answer"/>
+        <action application="echo"/>
+      </condition>
+    </extension>
+    
+    <!-- Extension for audio playback test -->
+    <extension name="audio_playback_test">
+      <condition field="destination_number" expression="^(1002)$">
+        <action application="answer"/>
+        <action application="playback" data="/var/lib/freeswitch/recordings/wav-example.wav"/>
+        <action application="echo"/>
+      </condition>
+    </extension>
+    
+    <!-- Extension for recording test -->
+    <extension name="recording_test">
+      <condition field="destination_number" expression="^(1003)$">
+        <action application="answer"/>
+        <action application="record_session" data="/tmp/recording_test.wav"/>
+        <action application="playback" data="silence_stream://5000"/>
+        <action application="hangup"/>
+      </condition>
+    </extension>
+  </context>
+</include> 

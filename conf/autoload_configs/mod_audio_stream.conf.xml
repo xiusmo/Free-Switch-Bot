@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration name="mod_audio_stream.conf" description="Audio Stream to WebSocket">
+  <load module="mod_audio_stream"/>
+  <settings>
+    <param name="websocket-enabled" value="true"/>
+    <param name="websocket-port" value="8081"/>
+    <param name="sample-rate" value="8000"/>
+    <param name="channels" value="1"/>
+    <param name="bit-depth" value="16"/>
+    <param name="buffer-size" value="1024"/>
+    <param name="max-connections" value="100"/>
+  </settings>
+</configuration> 

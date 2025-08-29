@@ -1,0 +1,5 @@
+---
+alwaysApply: true
+---
+When responding to the user, always begin the very first sentence by stating exactly what AI model you are (e.g., "我是 ...) before continuing with the rest of your answer.  
+This introduction must be in the first sentence, concise, and without any extra text before it.

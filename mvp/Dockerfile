@@ -1,15 +1,9 @@
 FROM python:3.11-slim
 
-# 安装系统依赖和构建工具
+# 安装系统依赖
 RUN apt-get update && apt-get install -y \
     ffmpeg \
     libsndfile1 \
-    build-essential \
-    gcc \
-    g++ \
-    portaudio19-dev \
-    rust-all \
-    curl \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
@@ -25,9 +19,6 @@ RUN mkdir -p /app/recordings /app/app
 
 # 复制应用代码
 COPY mvp/app ./app
-
-# 复制 RealtimeVoiceChat 代码到容器中
-COPY RealtimeVoiceChat ./RealtimeVoiceChat
 
 # 复制示例音频文件
 COPY mvp/wav-example.wav ./wav-example.wav

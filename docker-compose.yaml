@@ -47,13 +47,6 @@ services:
       - FS_PASSWORD=${FS_PASSWORD:-FSB0t_3SL_pw_20250812_abcDEF1234}
       - AUDIO_WS_HOST=fs-mvp
       - AUDIO_WS_PORT=8081
-      - QWEN_OMNI_ENABLED=${QWEN_OMNI_ENABLED:-true}
-      - QWEN_OMNI_API_KEY=${QWEN_OMNI_API_KEY:-sk-a8fb7798b99e458f8a0ecf43684466ff}
-      - QWEN_OMNI_MODEL=${QWEN_OMNI_MODEL:-qwen-omni-turbo-realtime-latest}
-      - QWEN_OMNI_VOICE=${QWEN_OMNI_VOICE:-Chelsie}
-      - QWEN_OMNI_LANGUAGE=${QWEN_OMNI_LANGUAGE:-zh}
-      - QWEN_OMNI_VAD_MODE=${QWEN_OMNI_VAD_MODE:-true}
-      - QWEN_OMNI_WEBSOCKET_URL=${QWEN_OMNI_WEBSOCKET_URL:-wss://dashscope.aliyuncs.com/api/v1/apps/omni/realtime}
     ports:
       - "8080:8080"
     depends_on:

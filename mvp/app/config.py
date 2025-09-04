@@ -44,15 +44,6 @@ class Config:
     # 音频文件路径
     EXAMPLE_AUDIO_FILE: str = os.getenv("EXAMPLE_AUDIO_FILE", "/app/wav-example.wav")
     
-    # Qwen-Omni 实时API配置
-    QWEN_OMNI_API_KEY: Optional[str] = os.getenv("QWEN_OMNI_API_KEY", "sk-a8fb7798b99e458f8a0ecf43684466ff")
-    QWEN_OMNI_MODEL: str = os.getenv("QWEN_OMNI_MODEL", "qwen-omni-turbo-realtime")
-    QWEN_OMNI_VOICE: str = os.getenv("QWEN_OMNI_VOICE", "Chelsie")  # Chelsie, Serena, Ethan, Cherry
-    QWEN_OMNI_LANGUAGE: str = os.getenv("QWEN_OMNI_LANGUAGE", "zh")  # zh, en
-    QWEN_OMNI_VAD_MODE: bool = os.getenv("QWEN_OMNI_VAD_MODE", "true").lower() == "true"
-    QWEN_OMNI_WEBSOCKET_URL: str = os.getenv("QWEN_OMNI_WEBSOCKET_URL", "wss://dashscope.aliyuncs.com/api/v1/apps/omni/realtime")
-    QWEN_OMNI_ENABLED: bool = os.getenv("QWEN_OMNI_ENABLED", "false").lower() == "true"
-    
     @classmethod
     def validate(cls) -> bool:
         """验证配置"""

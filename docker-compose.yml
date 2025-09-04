@@ -1,11 +1,9 @@
 services:
   freeswitch:
-    build:
-      context: .
-      args:
-        TOKEN: pat_bujV42y6vPTjaF6SyPXya9GY
+    image: ghcr.io/${GITHUB_REPOSITORY:-xiusmo/free-switch-bot}/freeswitch:latest
     container_name: freeswitch
     restart: unless-stopped
+    platform: linux/amd64
     cap_add:
       - SYS_NICE
     ulimits:
@@ -19,6 +17,7 @@ services:
       - ./logs:/var/log/freeswitch
       - ./recordings:/recordings
       - ./data:/shared:ro
+      - ./conf:/etc/freeswitch:ro  # 挂载配置文件目录
     ports:
       - "5060:5060/tcp"
       - "5060:5060/udp"
@@ -28,21 +27,23 @@ services:
       - "5080:5080/udp"
       - "5081:5081/tcp"
       - "5081:5081/udp"
+      - "8021:8021/tcp"      # Event Socket Library
       - "8081:8081/tcp"      # mod_audio_stream WebSocket
-      - "16384-16484:16384-16484/udp"  # RTP 范围（与 vars.xml 保持一致）
+      - "16384-16388:16384-16388/udp"  # RTP 范围（与 vars.xml 保持一致）
+    networks:
+      - freeswitch-net
 
   mvp:
-    build:
-      context: .
-      dockerfile: mvp/Dockerfile
+    image: ghcr.io/${GITHUB_REPOSITORY:-xiusmo/free-switch-bot}/mvp:latest
     container_name: fs-mvp
     restart: unless-stopped
+    platform: linux/amd64
     environment:
       - PORT=8080
       - FS_HOST=freeswitch
       - FS_PORT=8021
       - FS_PASSWORD=${FS_PASSWORD:-FSB0t_3SL_pw_20250812_abcDEF1234}
-      - AUDIO_WS_HOST=fs-mvp
+      - AUDIO_WS_HOST=freeswitch
       - AUDIO_WS_PORT=8081
     ports:
       - "8080:8080"
@@ -50,7 +51,11 @@ services:
       - freeswitch
     volumes:
       - ./data:/shared:rw
+      - ./recordings:/app/recordings:rw
+    networks:
+      - freeswitch-net
 
 networks:
-  default:
+  freeswitch-net:
     name: freeswitch-net
+    driver: bridge

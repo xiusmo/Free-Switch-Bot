@@ -13,7 +13,7 @@
   
   <!-- RTP配置 -->
   <X-PRE-PROCESS cmd="set" data="rtp_start_port=16384"/>
-  <X-PRE-PROCESS cmd="set" data="rtp_end_port=16484"/>
+  <X-PRE-PROCESS cmd="set" data="rtp_end_port=16388"/>
   
   <!-- 音频配置 -->
   <X-PRE-PROCESS cmd="set" data="global_codec_prefs=OPUS,G722,PCMU,PCMA"/>

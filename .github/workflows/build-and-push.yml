@@ -30,12 +30,11 @@ jobs:
           - image: freeswitch
             dockerfile: ./Dockerfile
             context: .
-            build-args: |
-              TOKEN=${{ secrets.SIGNALWIRE_TOKEN }}
+            needs_token: true
           - image: mvp
             dockerfile: ./mvp/Dockerfile
             context: .
-            build-args: ""
+            needs_token: false
 
     steps:
       - name: 检出代码
@@ -75,7 +74,7 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          build-args: ${{ matrix.build-args }}
+          build-args: ${{ matrix.needs_token == true && format('TOKEN={0}', secrets.SIGNALWIRE_TOKEN) || '' }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
